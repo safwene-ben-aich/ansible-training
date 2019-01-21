@@ -1,0 +1,58 @@
+---
+# STOP DATABASE SERVICE
+ - hosts: database
+   become: true
+   tasks:
+    - name: stop mysql service
+      service: name=mysql state=stopped
+    - wait_for: port=80 state=drained
+
+# STOP PROXY SERVICE
+ - hosts: loadbalancer
+   become: true
+   tasks:
+    - name: stop nginx service
+      service: name=nginx state=stopped
+    - wait_for: port=80 state=stopped
+
+# STOP APACHE2 SERVICE
+ - hosts: webserver
+   become: true
+   tasks:
+    - name: stop the apache server
+      service: name=apache2 state=stopped
+    - wait_for: port=80 state=stopped
+
+
+# START DATABASE SERVICE
+ - hosts: database
+   become: true
+   tasks:
+    - name: start mysql service
+      service: name=mysql state=started
+    - wait_for: port=3306 state=started
+
+# START PROXY SERVICE
+ - hosts: loadbalancer
+   become: true
+   tasks:
+    - name: start nginx service
+      service: name=nginx state=started      
+    - wait_for: port=80 state=started
+
+# START APACHE2 SERVICE
+ - hosts: webserver
+   become: true
+   tasks:
+    - name: start apache2 server
+      service: name=apache2 state=started      
+    - wait_for: port=80 state=started
+
+
+
+
+
+
+
+
+...

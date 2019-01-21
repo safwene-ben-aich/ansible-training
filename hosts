@@ -1,0 +1,12 @@
+[loadbalancer]
+centos-1
+
+[webserver]
+centos-2
+ubuntu-1
+
+[database]
+ubuntu-2
+
+[control]
+localhost

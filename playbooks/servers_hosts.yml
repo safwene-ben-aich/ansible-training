@@ -1,0 +1,14 @@
+---
+ - hosts: webserver
+   become: true
+   tasks:
+    - name: remove mappings from /etc/hosts
+      lineinfile:
+        dest=/etc/hosts
+        regexp="(^.*?(\bANSIBLE|ubuntu|db01\b).*$)"
+        state=absent
+    
+    - name: cat /etc/hosts
+      command: cat /etc/hosts
+      register: catmyhosts
+...

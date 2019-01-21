@@ -1,0 +1,20 @@
+---
+ - name: install web-server
+   apt: name={{item}} state=present update_cache=yes
+   with_items:
+    - apache2
+    - libapache2-mod-wsgi
+  
+ - name: ensure wsgi module is enabled
+   apache2_module: name=wsgi state=present
+   notify: restart apache2
+
+ - name: de-activate default apache site
+   file: path=/etc/apache2/sites-enabled/000-default.conf state=absent
+   notify: restart apache2
+
+ - name: ensure web-server is up and running
+   service: name=apache2 state=started enabled=yes  
+...
+
+# tasks file for apache2

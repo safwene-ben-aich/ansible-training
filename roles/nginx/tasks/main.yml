@@ -1,0 +1,20 @@
+---
+ - name: install nginx
+   apt: name=nginx state=present update_cache=yes  
+
+ - name: ensure nginx is up
+   service: name=nginx state=started enabled=yes  
+    
+ - name: configure nginx file
+   template: src=nginx.conf.j2 dest=/etc/nginx/sites-available/demo mode=0644
+   notify: nginx restart
+    
+ - name: disable default site
+   file: path=/etc/nginx/sites-enabled/default state=absent
+    
+ - name: enable default site
+   file: src=/etc/nginx/sites-available/demo dest=/etc/nginx/sites-enabled/demo mode=0644 state=link
+   notify: nginx restart
+
+
+# tasks file for nginx

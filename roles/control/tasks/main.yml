@@ -1,0 +1,5 @@
+---
+ - name: install tools on control host
+   apt: name=curl state=present update_cache=yes
+
+# tasks file for control

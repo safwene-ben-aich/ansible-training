@@ -1,0 +1,12 @@
+[loadbalancer]
+ubuntu-1
+
+[webserver]
+ubuntu-3
+ubuntu-4
+
+[database]
+ubuntu-2
+
+[control]
+localhost ansible_connection=local
