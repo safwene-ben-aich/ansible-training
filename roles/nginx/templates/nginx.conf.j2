@@ -5,9 +5,9 @@ upstream demo {
 }
 
 server {
-    listen 80;
+    listen {{item.value.frontend}};
 
     location / {
-        proxy_pass http://demo;
+        proxy_pass http://{{item.key}};
     }
 }

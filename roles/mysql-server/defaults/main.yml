@@ -1,2 +1,5 @@
 ---
+db_name: demo
+db_user_name: demo
+db_user_password: demo
 # defaults file for mysql-server
